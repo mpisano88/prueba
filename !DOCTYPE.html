@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Interactivo: La Estrategia de Cosnova Beauty en Perú</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral & Dusty Rose -->
+    <!-- Application Structure Plan: Se diseñó una SPA de una sola página con desplazamiento vertical y navegación fija. La estructura abandona el formato lineal del informe para adoptar un enfoque temático y de dashboard. Las secciones (Introducción, Estrategia, Canales, Precios, Lecciones) agrupan la información por conceptos de negocio (qué, cómo, dónde, cuánto, por qué), lo que facilita una exploración más intuitiva y dirigida por el usuario. Esta arquitectura permite al usuario comparar componentes de la estrategia de forma no lineal, por ejemplo, saltando directamente del análisis de precios a las recomendaciones estratégicas, mejorando la usabilidad y la síntesis de la información. -->
+    <!-- Visualization & Content Choices: 1. Mercado Peruano (Informar): Se usan tarjetas con estadísticas dinámicas para presentar datos clave (valor de mercado, crecimiento) de forma inmediata. 2. Modelo de Distribución (Organizar): Se utiliza un diagrama de flujo creado con HTML/CSS (Flexbox) y no con SVG, para visualizar la ruta desde el importador hasta el consumidor. 3. Comparativa de Precios (Comparar): Un gráfico de barras interactivo de Chart.js permite al usuario seleccionar categorías de productos y ver la comparación de precios entre Essence y Catrice. Esta es la principal herramienta interactiva, ya que el precio es un pilar central del informe. Se justifica por permitir la exploración de datos cuantitativos clave. 4. Canales de Venta (Organizar): Una lista filtrable con botones permite al usuario segmentar dinámicamente los minoristas por tipo de canal. CONFIRMADO: No se usaron gráficos SVG ni Mermaid JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDF8F6;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+        .nav-link.active {
+            color: #E11D48;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-lg font-bold text-rose-800">cosnova_analytics</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#introduccion" class="nav-link text-gray-600 hover:text-rose-600 px-3 py-2 rounded-md text-sm font-medium">Introducción</a>
+                        <a href="#estrategia" class="nav-link text-gray-600 hover:text-rose-600 px-3 py-2 rounded-md text-sm font-medium">La Estrategia</a>
+                        <a href="#canales" class="nav-link text-gray-600 hover:text-rose-600 px-3 py-2 rounded-md text-sm font-medium">Canales de Venta</a>
+                        <a href="#precios" class="nav-link text-gray-600 hover:text-rose-600 px-3 py-2 rounded-md text-sm font-medium">Análisis de Precios</a>
+                        <a href="#lecciones" class="nav-link text-gray-600 hover:text-rose-600 px-3 py-2 rounded-md text-sm font-medium">Lecciones Clave</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="introduccion" class="py-16 sm:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">El Ascenso de Cosnova Beauty en Perú</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-gray-600">Un análisis interactivo de la estrategia de "democratización de la belleza" que ha impulsado el crecimiento acelerado de las marcas Essence y Catrice en un mercado altamente competitivo.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <p class="text-4xl font-bold text-rose-600">€954M</p>
+                        <p class="mt-2 text-sm font-semibold text-gray-500">Ventas Netas Globales (2024)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <p class="text-4xl font-bold text-rose-600">S/ 8.8B</p>
+                        <p class="mt-2 text-sm font-semibold text-gray-500">Mercado Cosmético Peruano (2023)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <p class="text-4xl font-bold text-rose-600">75%</p>
+                        <p class="mt-2 text-sm font-semibold text-gray-500">Productos Importados en Perú</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="estrategia" class="py-16 sm:py-20 bg-rose-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">La Estrategia Ganadora</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-gray-600">El éxito de Cosnova se basa en tres pilares fundamentales que se alinean perfectamente con las demandas del consumidor peruano: un producto atractivo, una distribución omnicanal y un marketing digital efectivo.</p>
+                </div>
+
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-rose-100 text-rose-600 mb-4">
+                            <span class="text-2xl">🛍️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Producto y Precio</h3>
+                        <p class="mt-2 text-gray-600">Ofrecer "belleza rápida": productos de tendencia y calidad a precios muy asequibles. El ciclo de innovación es veloz, con hasta un 50% de la gama renovada anualmente y frecuentes ediciones limitadas para mantener el interés.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                         <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-rose-100 text-rose-600 mb-4">
+                            <span class="text-2xl">🚚</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Distribución Omnicanal</h3>
+                        <p class="mt-2 text-gray-600">Una red robusta que va desde el importador clave (Crisol Comercial) hasta una amplia presencia en retail físico (Aruma, Falabella) y una diversificada red de venta online (e-commerce, marketplaces, delivery apps).</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                         <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-rose-100 text-rose-600 mb-4">
+                            <span class="text-2xl">📱</span>
+                        </div>
+                        <h3 class="text-xl font-semibold">Marketing Digital y de Marca</h3>
+                        <p class="mt-2 text-gray-600">Fuerte énfasis en redes sociales y marketing de influencers para conectar con el público joven. El mensaje se centra en valores como "cruelty-free", "vegano" y "belleza limpia", generando un fuerte engagement orgánico.</p>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-center text-gray-900">Modelo de Distribución Simplificado</h3>
+                    <div class="mt-8 flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="flex items-center flex-col text-center p-4 bg-white rounded-lg shadow-md w-48">
+                           <div class="text-3xl mb-2">🏭</div>
+                           <p class="font-semibold">Cosnova Global</p>
+                           <p class="text-xs text-gray-500">Producción y Estrategia</p>
+                        </div>
+                        <div class="text-2xl text-rose-400 font-sans transform md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex items-center flex-col text-center p-4 bg-white rounded-lg shadow-md w-48">
+                           <div class="text-3xl mb-2">📦</div>
+                           <p class="font-semibold">Crisol Comercial</p>
+                           <p class="text-xs text-gray-500">Importador Principal</p>
+                        </div>
+                         <div class="text-2xl text-rose-400 font-sans transform md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex items-center flex-col text-center p-4 bg-white rounded-lg shadow-md w-48">
+                           <div class="text-3xl mb-2">🏪</div>
+                           <p class="font-semibold">Minoristas</p>
+                           <p class="text-xs text-gray-500">Aruma, Falabella, Online</p>
+                        </div>
+                         <div class="text-2xl text-rose-400 font-sans transform md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex items-center flex-col text-center p-4 bg-white rounded-lg shadow-md w-48">
+                           <div class="text-3xl mb-2">👩‍🎤</div>
+                           <p class="font-semibold">Consumidor Final</p>
+                           <p class="text-xs text-gray-500">Comprador Peruano</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="canales" class="py-16 sm:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Red de Canales de Venta</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-gray-600">Filtra para explorar la diversa red de puntos de venta donde los consumidores peruanos pueden encontrar los productos de Essence y Catrice. Esta extensa presencia es clave para su accesibilidad y éxito.</p>
+                </div>
+                
+                <div class="mt-8 flex justify-center space-x-2">
+                    <button data-filter="all" class="filter-btn bg-rose-600 text-white px-4 py-2 rounded-full text-sm font-semibold">Todos</button>
+                    <button data-filter="fisico" class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-semibold border">Retail Físico</button>
+                    <button data-filter="online" class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-semibold border">E-commerce</button>
+                    <button data-filter="delivery" class="filter-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-semibold border">Delivery App</button>
+                </div>
+
+                <div id="retailer-list" class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                </div>
+            </div>
+        </section>
+
+        <section id="precios" class="py-16 sm:py-20 bg-rose-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Análisis Comparativo de Precios</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-gray-600">El posicionamiento de precios es la piedra angular de la estrategia de Cosnova. Selecciona una categoría de producto para comparar los rangos de precios observados entre Essence y Catrice en el mercado peruano.</p>
+                </div>
+
+                <div class="mt-8 max-w-sm mx-auto">
+                    <label for="category-select" class="block text-sm font-medium text-gray-700">Seleccionar Categoría de Producto:</label>
+                    <select id="category-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm rounded-md shadow-sm">
+                    </select>
+                </div>
+
+                <div class="mt-8">
+                    <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="lecciones" class="py-16 sm:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Lecciones Clave y Recomendaciones</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-gray-600">El éxito de Cosnova ofrece valiosas lecciones para cualquier competidor en el mercado cosmético peruano. Aquí se resumen los aprendizajes clave y las recomendaciones estratégicas para una empresa como Natura Cosméticos.</p>
+                </div>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold text-rose-800">Aprendizajes Clave</h3>
+                        <ul class="mt-4 space-y-3 text-gray-600 list-disc list-inside">
+                            <li>El poder de una propuesta de valor clara y accesible.</li>
+                            <li>La importancia crítica de una distribución omnicanal robusta.</li>
+                            <li>La efectividad del marketing digital para construir deseabilidad.</li>
+                            <li>La ventaja estratégica de una innovación de productos ágil.</li>
+                        </ul>
+                    </div>
+                     <div class="bg-rose-100 p-8 rounded-xl shadow-inner">
+                        <h3 class="text-2xl font-semibold text-gray-900">Recomendaciones para Natura</h3>
+                        <ul class="mt-4 space-y-3 text-gray-700 list-disc list-inside">
+                            <li>Reevaluar segmentación de precios para competir en el mercado masivo.</li>
+                            <li>Mejorar la accesibilidad omnicanal, explorando marketplaces y delivery.</li>
+                            <li>Amplificar el marketing de influencers con programas estructurados.</li>
+                            <li>Acelerar ciclos de innovación para líneas de producto específicas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Análisis de Mercado Interactivo. Todos los datos se basan en el informe de estrategia de Cosnova Beauty.</p>
+            <p class="mt-1 text-gray-400">Esta es una visualización de datos con fines ilustrativos.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const retailerData = [
+                { name: 'Aruma', type: 'fisico', logo: '🏪', description: 'Cadena de belleza especializada' },
+                { name: 'Falabella', type: 'fisico', logo: '🏬', description: 'Tienda por departamento' },
+                { name: 'Ripley', type: 'fisico', logo: '🏬', description: 'Tienda por departamento' },
+                { name: 'Aruma.pe', type: 'online', logo: '💻', description: 'E-commerce de socio' },
+                { name: 'Falabella.com.pe', type: 'online', logo: '💻', description: 'E-commerce de socio' },
+                { name: 'Care to Beauty', type: 'online', logo: '🌐', description: 'Marketplace internacional' },
+                { name: 'Ubuy.pe', type: 'online', logo: '🌐', description: 'Marketplace internacional' },
+                { name: 'Ibella.pe', type: 'online', logo: '🛒', description: 'E-tailer local' },
+                { name: 'Tiendaperu.recamier.com', type: 'online', logo: '🛍️', description: 'E-commerce (Marca Aliada)' },
+                { name: 'Pharmax.com.pe', type: 'online', logo: '💊', description: 'Farmacia / Belleza Online' },
+                { name: 'Rappi', type: 'delivery', logo: '🛵', description: 'App de delivery rápido' }
+            ];
+
+            const priceData = {
+                'Máscara de Pestañas': { essence: [16.90, 28.00], catrice: null },
+                'Labial/Brillo': { essence: [7.90, 21.00], catrice: [19.90, 24.90] },
+                'Base de Maquillaje': { essence: [21.90, 33.90], catrice: [31.90, 42.90] },
+                'Delineador de Ojos': { essence: [9.90, 16.90], catrice: [9.90, 9.90] },
+                'Iluminador': { essence: [19.90, 21.90], catrice: [21.90, 21.90] },
+                'Corrector': { essence: null, catrice: [19.00, 23.00] },
+                'Rubor': { essence: null, catrice: [24.90, 29.90] },
+                'Fijador de Maquillaje': { essence: null, catrice: [26.90, 26.90] }
+            };
+
+            const retailerList = document.getElementById('retailer-list');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const categorySelect = document.getElementById('category-select');
+            
+            function renderRetailers(filter = 'all') {
+                retailerList.innerHTML = '';
+                const filteredData = filter === 'all' 
+                    ? retailerData
+                    : retailerData.filter(r => r.type === filter);
+                
+                filteredData.forEach(retailer => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-4 rounded-xl shadow-md text-center transform hover:scale-105 transition-transform duration-300';
+                    card.innerHTML = `
+                        <div class="text-4xl mb-2">${retailer.logo}</div>
+                        <h4 class="font-semibold text-gray-800">${retailer.name}</h4>
+                        <p class="text-sm text-gray-500">${retailer.description}</p>
+                    `;
+                    retailerList.appendChild(card);
+                });
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-rose-600', 'text-white');
+                        b.classList.add('bg-white', 'text-gray-700');
+                    });
+                    btn.classList.add('bg-rose-600', 'text-white');
+                    btn.classList.remove('bg-white', 'text-gray-700');
+                    renderRetailers(btn.dataset.filter);
+                });
+            });
+
+            Object.keys(priceData).forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            });
+
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            let priceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Rango de Precio (S/.)'],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Precio (S/.)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    if (label) {
+                                        return `${label}: S/. ${context.raw[0]} - S/. ${context.raw[1]}`;
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+                    datasets: {
+                        bar: {
+                            barPercentage: 0.7,
+                            categoryPercentage: 0.6
+                        }
+                    }
+                }
+            });
+
+            function updateChart(category) {
+                const data = priceData[category];
+                const datasets = [];
+
+                if(data.essence) {
+                    datasets.push({
+                        label: 'Essence',
+                        data: [data.essence],
+                        backgroundColor: 'rgba(236, 72, 153, 0.6)',
+                        borderColor: 'rgba(236, 72, 153, 1)',
+                        borderWidth: 1,
+                        borderSkipped: false
+                    });
+                }
+                
+                if(data.catrice) {
+                     datasets.push({
+                        label: 'Catrice',
+                        data: [data.catrice],
+                        backgroundColor: 'rgba(159, 18, 57, 0.6)',
+                        borderColor: 'rgba(159, 18, 57, 1)',
+                        borderWidth: 1,
+                         borderSkipped: false
+                    });
+                }
+
+                priceChart.data.datasets = datasets;
+                priceChart.update();
+            }
+
+            categorySelect.addEventListener('change', (e) => {
+                updateChart(e.target.value);
+            });
+
+            renderRetailers();
+            updateChart(Object.keys(priceData)[0]);
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+            
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
